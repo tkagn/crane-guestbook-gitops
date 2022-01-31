@@ -1,0 +1,156 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"redis-master","namespace":"guestbook"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"redis","role":"master","tier":"backend"}},"template":{"metadata":{"labels":{"app":"redis","role":"master","tier":"backend"}},"spec":{"containers":[{"image":"k8s.gcr.io/redis:e2e","name":"master","ports":[{"containerPort":6379}],"resources":{"requests":{"cpu":"100m","memory":"100Mi"}},"volumeMounts":[{"mountPath":"/data","name":"redis-master-data"}]}],"volumes":[{"emptyDir":{},"name":"redis-master-data"}]}}}}
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+      f:spec:
+        f:progressDeadlineSeconds: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:strategy:
+          f:rollingUpdate:
+            .: {}
+            f:maxSurge: {}
+            f:maxUnavailable: {}
+          f:type: {}
+        f:template:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:app: {}
+              f:role: {}
+              f:tier: {}
+          f:spec:
+            f:containers:
+              k:{"name":"master"}:
+                .: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:ports:
+                  .: {}
+                  k:{"containerPort":6379,"protocol":"TCP"}:
+                    .: {}
+                    f:containerPort: {}
+                    f:protocol: {}
+                f:resources:
+                  .: {}
+                  f:requests:
+                    .: {}
+                    f:cpu: {}
+                    f:memory: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+                f:volumeMounts:
+                  .: {}
+                  k:{"mountPath":"/data"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+            f:dnsPolicy: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+            f:volumes:
+              .: {}
+              k:{"name":"redis-master-data"}:
+                .: {}
+                f:emptyDir: {}
+                f:name: {}
+    manager: kubectl-client-side-apply
+    operation: Update
+    time: "2022-01-31T15:24:10Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:deployment.kubernetes.io/revision: {}
+      f:status:
+        f:availableReplicas: {}
+        f:conditions:
+          .: {}
+          k:{"type":"Available"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Progressing"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updatedReplicas: {}
+    manager: kube-controller-manager
+    operation: Update
+    subresource: status
+    time: "2022-01-31T15:24:43Z"
+  name: redis-master
+  namespace: guestbook
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: redis
+      role: master
+      tier: backend
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: redis
+        role: master
+        tier: backend
+    spec:
+      containers:
+      - image: k8s.gcr.io/redis:e2e
+        imagePullPolicy: IfNotPresent
+        name: master
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: redis-master-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: redis-master-data

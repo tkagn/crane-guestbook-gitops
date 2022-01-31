@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"guestbook","tier":"frontend"},"name":"frontend","namespace":"guestbook"},"spec":{"ports":[{"port":80}],"selector":{"app":"guestbook","tier":"frontend"}}}
+  labels:
+    app: guestbook
+    tier: frontend
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+        f:labels:
+          .: {}
+          f:app: {}
+          f:tier: {}
+      f:spec:
+        f:internalTrafficPolicy: {}
+        f:ports:
+          .: {}
+          k:{"port":80,"protocol":"TCP"}:
+            .: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: kubectl-client-side-apply
+    operation: Update
+    time: "2022-01-31T15:24:10Z"
+  name: frontend
+  namespace: guestbook
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: guestbook
+    tier: frontend
+  sessionAffinity: None
+  type: ClusterIP
